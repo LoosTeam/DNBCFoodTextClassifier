@@ -16,12 +16,23 @@
 ## Dependencies ----
 ## Amend DESCRIPTION with dependencies read from package code parsing
 ## install.packages('attachment') # if needed.
+
+usethis::use_package("pool")
+usethis::use_package("bslib")
+usethis::use_package("dplyr")
+usethis::use_pipe()
+usethis::use_package("DBI")
+usethis::use_package("ggplot2")
+usethis::use_package("pROC")
+
 attachment::att_amend_desc()
 
 ## Add modules ----
 ## Create a module infrastructure in R/
-golem::add_module(name = "name_of_module1", with_test = TRUE) # Name of the module
-golem::add_module(name = "name_of_module2", with_test = TRUE) # Name of the module
+golem::add_module(name = "scatter_plot")
+golem::add_module(name = "options")
+golem::add_module(name = "ppd_plot")
+golem::add_module(name = "binder")
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
