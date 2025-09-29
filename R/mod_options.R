@@ -59,6 +59,7 @@ mod_options_server <- function(id, con){
         dplyr::pull(name)
       # cat("input$select_type =", input$select_type, "\n")
       # print(filtered)
+
       updateSelectInput(
         session = session,
         inputId = "select_category",

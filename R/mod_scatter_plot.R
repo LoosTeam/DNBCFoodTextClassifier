@@ -7,22 +7,71 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
+#' @import dplyr
+#' @import plotly
 mod_scatter_plot_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    tableOutput(ns("mytable"))
+    plotly::plotlyOutput(ns("scatter_plot"))
   )
 }
 
 #' scatter_plot Server Functions
 #'
 #' @noRd
-mod_scatter_plot_server <- function(id, con){
+mod_scatter_plot_server <- function(id, user_options, con){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
-    output$mytable <- renderTable({
-      dbGetQuery(con, "SELECT * FROM predictions LIMIT 10;")
+
+    scatter_plot_data <- reactive({
+      pred_data <- prediction_data(con = con,
+                        classif_type = user_options$classif_type())
+
+      metric_data <- metrics_data(con = con,
+                    classif_type = user_options$classif_type())
+
+      categ_data <- category_mapper(con = con,
+                        classif_type = user_options$classif_type())
+
+      scatter_plot_data <- pred_data %>%
+      dplyr::mutate(
+        pred_class = ifelse(predicted_value_1 > predicted_value_0, "Positive", "Negative")
+      ) %>%
+        dplyr::group_by(category_id, true_label_factor, pred_class) %>%
+        dplyr::summarise(true_positives = n(), .groups = "drop") %>%
+        dplyr::filter(true_label_factor == "Positive", pred_class == "Positive") %>%
+        dplyr::select(category_id, true_positives) %>%
+        dplyr::full_join(metric_data, by = "category_id") %>%
+        dplyr::full_join(categ_data, by = "category_id") %>%
+        tidyr::pivot_longer(
+        cols = c(mcc, acc, roc_auc_macro, ap_macro),
+        names_to = "metric",
+        values_to = "value"
+      )
+      # return(scatter_plot_data)
     })
+
+    generate_scatter_plot <- function(scatter_plot_data){
+      p <- ggplot2::ggplot(scatter_plot_data, ggplot2::aes(x = true_positives, y = value, colour = name)) +
+        ggplot2::geom_point(alpha = 0.7) +
+        ggplot2::ylim(0,1)+
+        ggplot2::facet_wrap(~ metric) +
+        ggplot2::theme_minimal(base_size = 12) +
+        ggplot2::labs(
+          x = "True Positives",
+          y = "Metric Value",
+          title = "Performance Metrics vs True Positives"
+        )
+      return(plotly::ggplotly(p))
+    }
+
+    output$scatter_plot <- plotly::renderPlotly({
+      generate_scatter_plot(scatter_plot_data = scatter_plot_data())
+    })
+
+
+
+
   })
 }
 

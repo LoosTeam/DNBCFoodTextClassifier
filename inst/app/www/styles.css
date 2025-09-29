@@ -1,0 +1,66 @@
+
+/* background color of the navbar */
+.navbar{ background: white;}
+
+/* Set the font size for the entire navbar */
+.navbar {
+  font-size: 18px; /* Example font size */
+}
+
+/*Change the color of the link + put hand on hover */
+.nav-link , .navbar-brand{ color: #000000; cursor: pointer;}
+
+/* Margin of the links in the nav */
+.nav-link{ margin-right: 1em !important;}
+
+/* background color on hover of the nav links */
+.nav-link:hover{ background: #f4f4f4; color: #f97300; }
+
+/* content position */
+.navbar-collapse{ justify-content: flex-end;}
+
+/* background color of the navbar */
+.navbar-toggler{  background:#fff !important;}
+
+
+.navbar{
+  /*border-top: 2px solid black; */
+  border-bottom: 2px solid black;
+  padding-top : 2em;
+  padding-left : 5em;
+  padding-right : 5em;
+}
+
+.row{
+  margin-top: 1em;
+}
+
+
+.btn{
+    border: 1px solid #ced4da;
+}
+
+.blockquote{
+  font-size: 0.75em;
+}
+
+
+/*.position-fixed{
+    height: auto;
+    overflow: auto;
+    overflow-x: auto;
+}*/
+
+.scrollit{
+    margin-left: 1%; /* Adjust to fit next to the fixed panel */
+    width: 100%; /* Remaining width for the scrollable panel */
+    overflow-y: auto; /* Adds a vertical scrollbar if content exceeds height */
+    height: auto; /* Ensure full height of the viewport */
+}
+
+
+.tooltip-icon{
+  display: inline-block;
+  vertical-align: middle; /* Ensures the icon aligns vertically in the middle */
+  margin-left: 10px; /* Space between the text and the icon */
+}

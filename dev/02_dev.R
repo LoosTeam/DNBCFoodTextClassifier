@@ -24,6 +24,8 @@ usethis::use_pipe()
 usethis::use_package("DBI")
 usethis::use_package("ggplot2")
 usethis::use_package("pROC")
+usethis::use_package("glue")
+usethis::use_package("plotly")
 
 attachment::att_amend_desc()
 
@@ -31,13 +33,16 @@ attachment::att_amend_desc()
 ## Create a module infrastructure in R/
 golem::add_module(name = "scatter_plot")
 golem::add_module(name = "options")
-golem::add_module(name = "ppd_plot")
 golem::add_module(name = "binder")
+golem::add_module(name = "ppd_plot")
+golem::add_module(name = "confmat_plot")
+golem::add_module(name = "roc_curve_plot")
+golem::add_module(name = "pr_curve_plot")
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
-golem::add_fct("helpers", with_test = TRUE)
-golem::add_utils("helpers", with_test = TRUE)
+golem::add_fct("nav")
+# golem::add_utils("helpers", with_test = TRUE)
 
 ## External resources
 ## Creates .js and .css files at inst/app/www

@@ -8,16 +8,23 @@ License: What license is it under?
 URL: https://github.com/LoosTeam/DNBCFoodTextClassifier
 BugReports: https://github.com/LoosTeam/DNBCFoodTextClassifier/issues
 Imports: 
+    bslib,
     config,
     DBI,
     dplyr,
     ggplot2,
+    glue,
     golem,
+    htmltools,
     magrittr,
+    plotly,
     pool,
     pROC,
+    purrr,
     RPostgres,
-    shiny
+    scales,
+    shiny,
+    tidyr
 Suggests: 
     spelling,
     testthat (>= 3.0.0)
