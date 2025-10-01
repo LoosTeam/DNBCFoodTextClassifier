@@ -31,6 +31,7 @@ attachment::att_amend_desc()
 
 ## Add modules ----
 ## Create a module infrastructure in R/
+golem::add_module(name = "about")
 golem::add_module(name = "scatter_plot")
 golem::add_module(name = "options")
 golem::add_module(name = "binder")

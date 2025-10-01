@@ -32,6 +32,9 @@ db_connect <- function(prod = golem::app_prod()) {
       user     = "postgres",
       password = "siddhi"
     )
+    onStop(function() {
+      pool::poolClose(con)
+    })
 
   }
 

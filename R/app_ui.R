@@ -17,6 +17,10 @@ app_ui <- function(request) {
       ),
       bslib::nav_spacer(),
       bslib::nav_panel(
+        title = "About",
+        mod_about_ui("about")
+      ),
+      bslib::nav_panel(
         title = "Main",
           mod_binder_ui("binder_main", pg="main")
       ),
