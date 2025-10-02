@@ -23,18 +23,19 @@ db_connect <- function(prod = golem::app_prod()) {
     )
 
   } else {
-
-    con <- pool::dbPool(
-      drv      = RPostgres::Postgres(),
-      dbname   = "eir_data",
-      host     = "localhost",
-      port     = 5432,
-      user     = "postgres",
-      password = "siddhi"
-    )
-    onStop(function() {
-      pool::poolClose(con)
-    })
+    db_path <- system.file("extdata", "eir_data.sqlite", package = "DNBCFoodTextClassifier")
+    con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+    # con <- pool::dbPool(
+    #   drv      = RPostgres::Postgres(),
+    #   dbname   = "eir_data",
+    #   host     = "localhost",
+    #   port     = 5432,
+    #   user     = "postgres",
+    #   password = "siddhi"
+    # )
+    # onStop(function() {
+    #   pool::poolClose(con)
+    # })
 
   }
 

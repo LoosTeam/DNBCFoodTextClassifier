@@ -26,6 +26,7 @@ usethis::use_package("ggplot2")
 usethis::use_package("pROC")
 usethis::use_package("glue")
 usethis::use_package("plotly")
+usethis::use_package("RSQLite")
 
 attachment::att_amend_desc()
 
@@ -55,7 +56,7 @@ golem::add_any_file("file.json")
 
 ## Add internal datasets ----
 ## If you have data in your package
-usethis::use_data_raw(name = "my_dataset", open = FALSE)
+usethis::use_data_raw(name = "eir_db", open = FALSE)
 
 ## Tests ----
 ## Add one line by test you want to create

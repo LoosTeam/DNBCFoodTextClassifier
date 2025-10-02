@@ -22,6 +22,7 @@ Imports:
     pROC,
     purrr,
     RPostgres,
+    RSQLite,
     scales,
     shiny,
     tidyr
