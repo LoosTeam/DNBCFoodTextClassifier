@@ -7,29 +7,57 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_options_ui <- function(id) {
+mod_options_ui <- function(id, pg = c("main", "attrib")) {
   ns <- NS(id)
   tagList(
-    selectInput(inputId=ns("select_type"),
-                 label = "Select a type",
-                choices = NULL,#unique(categories$type),
-                selected = NULL,
-                multiple = FALSE,
-                selectize = TRUE,
-                width = NULL,
-                size = NULL
-                ),
-    selectInput(
-      inputId=ns("select_category"),
-      label = "Select a food category",
-      choices = NULL,#unique(categories$type),
-      selected = NULL,
-      multiple = FALSE,
-      selectize = TRUE,
-      width = NULL,
-      size = NULL
-    )
+    if (pg == "main"){
+      tagList(
+        selectInput(inputId=ns("select_type"),
+                    label = "Select a type",
+                    choices = NULL,#unique(categories$type),
+                    selected = NULL,
+                    multiple = FALSE,
+                    selectize = TRUE,
+                    width = NULL,
+                    size = NULL
+        ),
+        selectInput(
+          inputId=ns("select_category"),
+          label = "Select one or more food categories",
+          choices = NULL,#unique(categories$type),
+          selected = NULL,
+          multiple = TRUE,
+          selectize = TRUE,
+          width = NULL,
+          size = NULL
+        )
+      )
+    } else if (pg == "attrib"){
+      tagList(
+        selectInput(inputId=ns("select_type"),
+                    label = "Select a type",
+                    choices = NULL,#unique(categories$type),
+                    selected = NULL,
+                    multiple = FALSE,
+                    selectize = TRUE,
+                    width = NULL,
+                    size = NULL
+        ),
+        selectInput(
+          inputId=ns("select_category"),
+          label = "Select a food category",
+          choices = NULL,#unique(categories$type),
+          selected = NULL,
+          multiple = FALSE,
+          selectize = TRUE,
+          width = NULL,
+          size = NULL
+        )
+      )
+    }
   )
+
+
 }
 
 #' options Server Functions
@@ -43,8 +71,6 @@ mod_options_server <- function(id, con){
 
 
     observe({
-      # req(input$select_category)
-      # cat("User selected food category:", input$select_category, "\n")
       updateSelectInput(
         session = session,
         inputId = "select_type",
@@ -57,14 +83,12 @@ mod_options_server <- function(id, con){
       filtered <- categories %>%
         dplyr::filter(type == input$select_type) %>%
         dplyr::pull(name)
-      # cat("input$select_type =", input$select_type, "\n")
-      # print(filtered)
 
       updateSelectInput(
         session = session,
         inputId = "select_category",
         choices = filtered
-        # selected = input$select_category
+
       )
     })
 

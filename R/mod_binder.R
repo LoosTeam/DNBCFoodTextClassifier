@@ -14,7 +14,7 @@ mod_binder_ui <- function(id, pg = c("main","attrib")) {
     if (pg == "main") {
       bslib::layout_sidebar(
         sidebar = bslib::sidebar(
-          mod_options_ui(ns("user_options"))
+          mod_options_ui(ns("user_options"), "main")
         ),
         bslib::page_fluid(
           bslib::layout_columns(
@@ -27,7 +27,7 @@ mod_binder_ui <- function(id, pg = c("main","attrib")) {
     } else if (pg == "attrib"){
       bslib::layout_sidebar(
         sidebar = bslib::sidebar(
-          mod_options_ui(ns("user_options"))
+          mod_options_ui(ns("user_options"), "attrib")
         ),
         bslib::page_fluid(
           bslib::layout_columns(

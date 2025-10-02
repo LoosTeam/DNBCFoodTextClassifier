@@ -48,12 +48,28 @@ mod_scatter_plot_server <- function(id, user_options, con){
         names_to = "metric",
         values_to = "value"
       )
-      # return(scatter_plot_data)
+      selected_cats <- user_options$food_category()
+      if (!is.null(selected_cats) && any(!is.na(selected_cats))) {
+        food_categ_ids <- purrr::map(selected_cats, ~ {
+          category_mapper(
+            con = con,
+            classif_type = user_options$classif_type(),
+            food_category = .x
+          )$category_id
+        }) %>%
+          unlist() %>%
+          unique()
+
+        return(scatter_plot_data %>%
+          dplyr::filter(category_id %in% food_categ_ids))
+      } else {
+        return(scatter_plot_data)
+      }
     })
 
     generate_scatter_plot <- function(scatter_plot_data){
       p <- ggplot2::ggplot(scatter_plot_data, ggplot2::aes(x = true_positives, y = value, colour = name)) +
-        ggplot2::geom_point(alpha = 0.7) +
+        ggplot2::geom_point(alpha = 0.7, size = 2) +
         ggplot2::ylim(0,1)+
         ggplot2::facet_wrap(~ metric) +
         ggplot2::theme_minimal(base_size = 12) +
@@ -61,8 +77,19 @@ mod_scatter_plot_server <- function(id, user_options, con){
           x = "True Positives",
           y = "Metric Value",
           title = "Performance Metrics vs True Positives"
-        )
-      return(plotly::ggplotly(p))
+        ) +
+        ggplot2::theme(legend.position = "none")
+      p_ly <- plotly::ggplotly(p) %>%
+        plotly::config(modeBarButtonsToRemove = c("zoom2d",
+                                                  "zoomIn2d",
+                                                  "zoomOut2d",
+                                                  "lasso2d",
+                                                  "select2d",
+                                                  "hoverClosestCartesian",
+                                                  "hoverCompareCartesian",
+                                                  "pan2d"),
+                       displaylogo = FALSE)
+      return(p_ly)
     }
 
     output$scatter_plot <- plotly::renderPlotly({
