@@ -68,18 +68,33 @@ mod_scatter_plot_server <- function(id, user_options, con){
     })
 
     generate_scatter_plot <- function(scatter_plot_data){
-      p <- ggplot2::ggplot(scatter_plot_data, ggplot2::aes(x = true_positives, y = value, colour = name)) +
+      mean_lines <- scatter_plot_data %>%
+        group_by(metric) %>%
+        summarise(mean_value = mean(value, na.rm = TRUE))
+
+      p <- ggplot2::ggplot(scatter_plot_data,
+                           ggplot2::aes(x = true_positives,
+                                        y = value,
+                                        colour = name,
+                                        text = text_format_plotly(name,metric,value, true_positives))) +
         ggplot2::geom_point(alpha = 0.7, size = 2) +
+        ggplot2::geom_hline(
+          data = mean_lines,
+          ggplot2::aes(yintercept = mean_value),
+          linetype = "dashed",
+          color = "grey",
+          linewidth = 0.7
+        ) +
         ggplot2::ylim(0,1)+
         ggplot2::facet_wrap(~ metric) +
         ggplot2::theme_minimal(base_size = 12) +
         ggplot2::labs(
-          x = "True Positives",
+          x = "True Frequency",
           y = "Metric Value",
           title = "Performance Metrics vs True Positives"
         ) +
         ggplot2::theme(legend.position = "none")
-      p_ly <- plotly::ggplotly(p) %>%
+      p_ly <- plotly::ggplotly(p, tooltip = "text") %>%
         plotly::config(modeBarButtonsToRemove = c("zoom2d",
                                                   "zoomIn2d",
                                                   "zoomOut2d",

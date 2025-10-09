@@ -27,6 +27,7 @@ usethis::use_package("pROC")
 usethis::use_package("glue")
 usethis::use_package("plotly")
 usethis::use_package("RSQLite")
+usethis::use_package("ggnewscale")
 
 attachment::att_amend_desc()
 

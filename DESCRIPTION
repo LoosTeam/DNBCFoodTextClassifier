@@ -12,20 +12,19 @@ Imports:
     config,
     DBI,
     dplyr,
+    ggnewscale,
     ggplot2,
-    glue,
     golem,
-    htmltools,
     magrittr,
     plotly,
-    pool,
     pROC,
     purrr,
     RPostgres,
     RSQLite,
     scales,
     shiny,
-    tidyr
+    tidyr,
+    zoo
 Suggests: 
     spelling,
     testthat (>= 3.0.0)

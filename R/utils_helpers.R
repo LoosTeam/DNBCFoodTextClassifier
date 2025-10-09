@@ -114,3 +114,17 @@ metrics_data <- function(con, classif_type, food_category=NULL) {
 
   return(metric_data)
 }
+
+#' @description A function to format text for plotly hoverinfo
+
+text_format_plotly <- function(name, metric, value, tp) {
+  paste0(
+    "Category: ",name, "<br>",
+    "Metric: ", metric, "<br>",
+    "Value: ", round(value,3), "<br>",
+    "True positives: ",tp
+  )
+}
+
+#'
+#'
