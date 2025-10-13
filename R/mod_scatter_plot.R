@@ -69,8 +69,8 @@ mod_scatter_plot_server <- function(id, user_options, con){
 
     generate_scatter_plot <- function(scatter_plot_data){
       mean_lines <- scatter_plot_data %>%
-        group_by(metric) %>%
-        summarise(mean_value = mean(value, na.rm = TRUE))
+        dplyr::group_by(metric) %>%
+        dplyr::summarise(mean_value = mean(value, na.rm = TRUE))
 
       p <- ggplot2::ggplot(scatter_plot_data,
                            ggplot2::aes(x = true_positives,

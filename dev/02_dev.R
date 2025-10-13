@@ -17,19 +17,33 @@
 ## Amend DESCRIPTION with dependencies read from package code parsing
 ## install.packages('attachment') # if needed.
 
-usethis::use_package("pool")
-usethis::use_package("bslib")
-usethis::use_package("dplyr")
-usethis::use_pipe()
-usethis::use_package("DBI")
-usethis::use_package("ggplot2")
-usethis::use_package("pROC")
-usethis::use_package("glue")
-usethis::use_package("plotly")
-usethis::use_package("RSQLite")
-usethis::use_package("ggnewscale")
+#using renv with golem: https://thinkr-open.github.io/golem/articles/c_deploy.html
+
+# usethis::use_package("bslib")
+# usethis::use_package("dplyr")
+# usethis::use_pipe()
+# usethis::use_package("DBI")
+# usethis::use_package("ggplot2")
+# usethis::use_package("pROC")
+# usethis::use_package("plotly")
+# usethis::use_package("RSQLite")
+# usethis::use_package("ggnewscale")
 
 attachment::att_amend_desc()
+attachment::create_renv_for_dev(dev_pkg = c(
+  "renv",
+  "devtools",
+  "roxygen2",
+  "usethis",
+  "pkgload",
+  "golem",
+  "DBI",
+  "ggplot2",
+  "pROC",
+  "plotly",
+  "RSQLite",
+  "ggnewscale"
+))
 
 ## Add modules ----
 ## Create a module infrastructure in R/
