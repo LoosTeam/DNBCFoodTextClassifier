@@ -62,10 +62,10 @@ db_connect <- function(prod = golem::app_prod()) {
 #' @return category ids
 category_mapper <- function(con, classif_type, food_category=NULL) {
   if (!exists("food_category") || is.null(food_category) || food_category == "" || is.na(food_category)) {
-    q1 <- paste0("SELECT category_id,name FROM categories WHERE type = '", classif_type, "'")
+    q1 <- paste0("SELECT category_id,name_exp FROM categories WHERE type = '", classif_type, "'")
   } else {
-    q1 <- paste0("SELECT category_id,name FROM categories WHERE type = '", classif_type,
-                 "' AND name = '", food_category, "'")
+    q1 <- paste0("SELECT category_id,name_exp FROM categories WHERE type = '", classif_type,
+                 "' AND name_exp = '", food_category, "'")
   }
 
   category_mapper <- DBI::dbGetQuery(con, q1)
@@ -81,7 +81,7 @@ prediction_data <- function(con, classif_type, food_category=NULL) {
     q1 <- paste0("SELECT category_id FROM categories WHERE type = '", classif_type, "'")
   } else {
     q1 <- paste0("SELECT category_id FROM categories WHERE type = '", classif_type,
-                 "' AND name = '", food_category, "'")
+                 "' AND name_exp = '", food_category, "'")
   }
 
   category_id <- DBI::dbGetQuery(con, q1)$category_id
@@ -104,7 +104,7 @@ metrics_data <- function(con, classif_type, food_category=NULL) {
     q1 <- paste0("SELECT category_id FROM categories WHERE type = '", classif_type, "'")
   } else {
     q1 <- paste0("SELECT category_id FROM categories WHERE type = '", classif_type,
-                 "' AND name = '", food_category, "'")
+                 "' AND name_exp = '", food_category, "'")
   }
 
   category_id <- DBI::dbGetQuery(con, q1)$category_id

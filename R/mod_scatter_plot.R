@@ -75,8 +75,8 @@ mod_scatter_plot_server <- function(id, user_options, con){
       p <- ggplot2::ggplot(scatter_plot_data,
                            ggplot2::aes(x = true_positives,
                                         y = value,
-                                        colour = name,
-                                        text = text_format_plotly(name,metric,value, true_positives))) +
+                                        colour = name_exp,
+                                        text = text_format_plotly(name_exp,metric,value, true_positives))) +
         ggplot2::geom_point(alpha = 0.7, size = 2) +
         ggplot2::geom_hline(
           data = mean_lines,

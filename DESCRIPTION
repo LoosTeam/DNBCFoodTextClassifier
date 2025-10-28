@@ -7,6 +7,8 @@ Description: PKG_DESC.
 License: What license is it under?
 URL: https://github.com/LoosTeam/DNBCFoodTextClassifier
 BugReports: https://github.com/LoosTeam/DNBCFoodTextClassifier/issues
+Depends: 
+    R (>= 3.5)
 Imports: 
     bslib,
     config,
@@ -23,6 +25,7 @@ Imports:
     RSQLite,
     scales,
     shiny,
+    shinyWidgets,
     tidyr,
     zoo
 Suggests: 

@@ -42,7 +42,8 @@ attachment::create_renv_for_dev(dev_pkg = c(
   "pROC",
   "plotly",
   "RSQLite",
-  "ggnewscale"
+  "ggnewscale",
+  "shinyWidgets"
 ))
 
 ## Add modules ----
@@ -72,6 +73,7 @@ golem::add_any_file("file.json")
 ## Add internal datasets ----
 ## If you have data in your package
 usethis::use_data_raw(name = "eir_db", open = FALSE)
+usethis::use_data_raw(name = "category_map", open = FALSE)
 
 ## Tests ----
 ## Add one line by test you want to create

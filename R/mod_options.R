@@ -24,7 +24,7 @@ mod_options_ui <- function(id, pg = c("main", "attrib")) {
         selectInput(
           inputId=ns("select_category"),
           label = "Select one or more food categories",
-          choices = NULL,#unique(categories$type),
+          choices = NULL,
           selected = NULL,
           multiple = TRUE,
           selectize = TRUE,
@@ -81,13 +81,23 @@ mod_options_server <- function(id, con){
     observe({
       req(input$select_type)
       filtered <- categories %>%
-        dplyr::filter(type == input$select_type) %>%
-        dplyr::pull(name)
+        dplyr::filter(type == input$select_type)
+      if (input$select_type == "Broad Categories"){
+        filtered_list <- filtered %>%
+          pull(name_exp)
+      } else if (input$select_type == "Specific Categories") {
+        filtered_list <- filtered %>%
+          dplyr::select(name_exp,broad_categ) %>%
+          dplyr::group_by(broad_categ) %>%
+          dplyr::summarise(items = list(name_exp)) %>%
+          tibble::deframe() %>%
+          lapply(as.list)
+      }
 
       updateSelectInput(
         session = session,
         inputId = "select_category",
-        choices = filtered
+        choices = filtered_list
 
       )
     })
