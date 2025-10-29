@@ -28,7 +28,14 @@ mod_scatter_plot_server <- function(id, user_options, con){
                         classif_type = user_options$classif_type())
 
       metric_data <- metrics_data(con = con,
-                    classif_type = user_options$classif_type())
+                    classif_type = user_options$classif_type()) %>%
+        dplyr::rename(
+          "MCC" = mcc,
+          "Accuracy" = acc,
+          "ROC-AUC" = roc_auc_macro,
+          "Average Precision" = ap_macro,
+          "Loss" = loss
+        )
 
       categ_data <- category_mapper(con = con,
                         classif_type = user_options$classif_type())
@@ -44,7 +51,7 @@ mod_scatter_plot_server <- function(id, user_options, con){
         dplyr::full_join(metric_data, by = "category_id") %>%
         dplyr::full_join(categ_data, by = "category_id") %>%
         tidyr::pivot_longer(
-        cols = c(mcc, acc, roc_auc_macro, ap_macro),
+        cols = c("MCC", "Accuracy", "ROC-AUC", "Average Precision"),
         names_to = "metric",
         values_to = "value"
       )
@@ -91,7 +98,7 @@ mod_scatter_plot_server <- function(id, user_options, con){
         ggplot2::labs(
           x = "True Frequency",
           y = "Metric Value",
-          title = "Performance Metrics vs True Positives"
+          # title = "Performance Metrics vs True Positives"
         ) +
         ggplot2::theme(legend.position = "none")
       p_ly <- plotly::ggplotly(p, tooltip = "text") %>%

@@ -31,12 +31,14 @@ mod_binder_ui <- function(id, pg = c("main","attrib")) {
         ),
         bslib::page_fluid(
           bslib::layout_columns(
-            col_widths = c(6, 6, 6, 6),
+            col_widths = c(6, 6, 6, 6, 6, 6),
             min_height = "200px",
             mod_ppd_plot_ui(ns("ppd_plot_1")),
             mod_confmat_plot_ui(ns("confmat_plot_1")),
             mod_roc_curve_plot_ui(ns("roc_curve_plot_1")),
-            mod_pr_curve_plot_ui(ns("pr_curve_plot_1"))
+            mod_pr_curve_plot_ui(ns("pr_curve_plot_1")),
+            mod_attrib_bar_plot_ui(ns("attrib_bar_plot_negative")),
+            mod_attrib_bar_plot_ui(ns("attrib_bar_plot_positive"))
           )
         )
 
@@ -67,6 +69,8 @@ mod_binder_server <- function(id, con, pg){
       mod_confmat_plot_server("confmat_plot_1", user_options = user_options, con = con)
       mod_roc_curve_plot_server("roc_curve_plot_1", user_options = user_options, con = con)
       mod_pr_curve_plot_server("pr_curve_plot_1", user_options = user_options, con = con)
+      mod_attrib_bar_plot_server("attrib_bar_plot_negative", user_options = user_options, con = con, label = 0)
+      mod_attrib_bar_plot_server("attrib_bar_plot_positive", user_options = user_options, con = con, label = 1)
     }
   })
 }

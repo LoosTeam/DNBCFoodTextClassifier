@@ -56,6 +56,7 @@ golem::add_module(name = "ppd_plot")
 golem::add_module(name = "confmat_plot")
 golem::add_module(name = "roc_curve_plot")
 golem::add_module(name = "pr_curve_plot")
+golem::add_module(name = "attrib_bar_plot")
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
