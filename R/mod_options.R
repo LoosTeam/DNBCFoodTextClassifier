@@ -85,7 +85,7 @@ mod_options_server <- function(id, con){
       if (input$select_type == "Major Categories"){
         filtered_list <- filtered %>%
           pull(name_exp)
-      } else if (input$select_type == "Sub-Categories") {
+      } else if (input$select_type == "Subcategories") {
         filtered_list <- filtered %>%
           dplyr::select(name_exp,broad_categ) %>%
           dplyr::group_by(broad_categ) %>%

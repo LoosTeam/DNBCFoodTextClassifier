@@ -45,7 +45,7 @@ db_connect <- function(prod = golem::app_prod()) {
 #
 # pool::poolClose(pool)
 
-#classif_type="Broad Categories"
+#classif_type="Major Categories"
 #food_category="Alcohol"
 
 #' @description A function to extract "category" ids

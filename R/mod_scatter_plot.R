@@ -19,7 +19,7 @@ mod_scatter_plot_ui <- function(id) {
 #' scatter_plot Server Functions
 #'
 #' @noRd
-mod_scatter_plot_server <- function(id, user_options, con){
+mod_scatter_plot_server <- function(id, user_options, con, plot_metric){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
 
@@ -74,16 +74,18 @@ mod_scatter_plot_server <- function(id, user_options, con){
       }
     })
 
-    generate_scatter_plot <- function(scatter_plot_data){
+    generate_scatter_plot <- function(scatter_plot_data, plot_metric){
       mean_lines <- scatter_plot_data %>%
+        dplyr::filter(metric == plot_metric) %>%
         dplyr::group_by(metric) %>%
         dplyr::summarise(mean_value = mean(value, na.rm = TRUE))
 
-      p <- ggplot2::ggplot(scatter_plot_data,
+      p <- ggplot2::ggplot(scatter_plot_data %>%
+                             dplyr::filter(metric == plot_metric),
                            ggplot2::aes(x = true_positives,
                                         y = value,
                                         colour = name_exp,
-                                        text = text_format_plotly(name_exp,metric,value, true_positives))) +
+                                        text = text_format_plotly(name_exp,plot_metric,value, true_positives))) +
         ggplot2::geom_point(alpha = 0.7, size = 2) +
         ggplot2::geom_hline(
           data = mean_lines,
@@ -93,7 +95,7 @@ mod_scatter_plot_server <- function(id, user_options, con){
           linewidth = 0.7
         ) +
         ggplot2::ylim(0,1)+
-        ggplot2::facet_wrap(~ metric) +
+        # ggplot2::facet_wrap(~ metric) +
         ggplot2::theme_minimal(base_size = 12) +
         ggplot2::labs(
           x = "True Frequency",
@@ -115,7 +117,7 @@ mod_scatter_plot_server <- function(id, user_options, con){
     }
 
     output$scatter_plot <- plotly::renderPlotly({
-      generate_scatter_plot(scatter_plot_data = scatter_plot_data())
+      generate_scatter_plot(scatter_plot_data = scatter_plot_data(), plot_metric = plot_metric)
     })
 
 

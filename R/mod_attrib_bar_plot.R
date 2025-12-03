@@ -34,11 +34,11 @@ mod_attrib_bar_plot_server <- function(id, user_options, con, label){
         dplyr::top_n(10) %>%
         dplyr::mutate(label= as.character(label))
 
-      title <- if (label == 1) {
-        "Token attributions for class 'Positive'"
-      } else {
-        "Token attributions for class 'Negative'"
-      }
+      # title <- if (label == 1) {
+      #   "Token attributions for class 'Positive'"
+      # } else {
+      #   "Token attributions for class 'Negative'"
+      # }
 
       p <- ggplot2::ggplot(barplot_data_mod,
                            ggplot2::aes(x = attribution,
@@ -62,7 +62,7 @@ mod_attrib_bar_plot_server <- function(id, user_options, con, label){
         ggplot2::labs(
           x = "Attribution score",
           y = "Top 10 tokens",
-          title = title
+          # title = title
         ) +
         ggplot2::theme_minimal(base_size = 12) +
         ggplot2::theme(

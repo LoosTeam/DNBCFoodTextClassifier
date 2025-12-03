@@ -46,7 +46,7 @@ mod_ppd_plot_server <- function(id, user_options, con){
         ggplot2::labs(
           x = "Predicted probability for class 'Positive'",
           y = "Frequency",
-          title = "Prediction Score Distribution"
+          # title = "Prediction Score Distribution"
         ) +
         # ggplot2::annotate(
         #   "text",

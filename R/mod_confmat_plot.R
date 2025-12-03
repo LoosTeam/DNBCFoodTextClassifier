@@ -98,15 +98,15 @@ mod_confmat_plot_server <- function(id, user_options, con){
         ) +
 
         labs(
-          title = title_extra,
+          # title = title_extra,
           x = "Predicted Label",
           y = "True Label"
         ) +
         theme_minimal(base_size = 12) +
         theme(
-          plot.title = element_text(face = "bold", size = 12),
+          plot.margin = margin(t = 10, r = 30, b = 10, l = 10),
           legend.position = "bottom",
-          legend.text = element_text(angle = 45, hjust = 1)
+          legend.text = element_text(angle = 45, hjust = 1, size = 8)
         )
 
 

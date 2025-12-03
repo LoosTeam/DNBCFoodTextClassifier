@@ -28,6 +28,7 @@
 # usethis::use_package("plotly")
 # usethis::use_package("RSQLite")
 # usethis::use_package("ggnewscale")
+# usethis::use_package("markdown")
 
 attachment::att_amend_desc()
 attachment::create_renv_for_dev(dev_pkg = c(
@@ -43,7 +44,8 @@ attachment::create_renv_for_dev(dev_pkg = c(
   "plotly",
   "RSQLite",
   "ggnewscale",
-  "shinyWidgets"
+  "shinyWidgets",
+  "markdown"
 ))
 
 ## Add modules ----

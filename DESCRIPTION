@@ -10,6 +10,7 @@ BugReports: https://github.com/LoosTeam/DNBCFoodTextClassifier/issues
 Depends: 
     R (>= 3.5)
 Imports: 
+    bsicons,
     bslib,
     config,
     DBI,
@@ -18,14 +19,14 @@ Imports:
     ggplot2,
     golem,
     magrittr,
+    markdown,
     plotly,
     pROC,
     purrr,
-    RPostgres,
     RSQLite,
     scales,
     shiny,
-    shinyWidgets,
+    tibble,
     tidyr,
     zoo
 Suggests: 

@@ -54,7 +54,7 @@ mod_roc_curve_plot_server <- function(id, user_options, con){
         ggplot2::labs(
           x = "False Positive Rate",
           y = "True Positive Rate",
-          title = "ROC Curve"
+          # title = "ROC Curve"
         ) +
         ggplot2::theme_minimal(base_size = 12) +
         ggplot2::theme(

@@ -45,7 +45,7 @@ mod_pr_curve_plot_server <- function(id, user_options, con){
         ggplot2::labs(
           x = "Recall (TPR)",
           y = "Precision (PPV)",
-          title = "Precision–Recall Curve"
+          # title = "Precision–Recall Curve"
         ) +
         ggplot2::annotate(
           "text",
