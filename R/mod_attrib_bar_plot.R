@@ -42,7 +42,7 @@ mod_attrib_bar_plot_server <- function(id, user_options, con, label){
 
       p <- ggplot2::ggplot(barplot_data_mod,
                            ggplot2::aes(x = attribution,
-                                        y = reorder(input, attribution),
+                                        y = reorder(paste0('"',input_mod,'"'), attribution),
                                         fill = label,
                                         label = round(attribution, digits = 3))) +
         ggplot2::geom_bar(
