@@ -31,22 +31,49 @@
 # usethis::use_package("markdown")
 
 attachment::att_amend_desc()
-attachment::create_renv_for_dev(dev_pkg = c(
-  "renv",
-  "devtools",
-  "roxygen2",
-  "usethis",
-  "pkgload",
-  "golem",
-  "DBI",
-  "ggplot2",
-  "pROC",
-  "plotly",
-  "RSQLite",
-  "ggnewscale",
-  "shinyWidgets",
-  "markdown"
-))
+attachment::create_renv_for_dev(
+  dev_pkg = c(
+    # Dev / tooling
+    "attachment",
+    "brew",
+    "renv",
+    "devtools",
+    "roxygen2",
+    "usethis",
+    "pkgload",
+    "golem",
+
+    # Shiny / UI
+    "shiny",
+    "shinyWidgets",
+    "bslib",
+    "bsicons",
+
+    # Data / manipulation
+    "dplyr",
+    "tidyr",
+    "purrr",
+    "tibble",
+    "magrittr",
+    "scales",
+    "zoo",
+
+    # Plotting / viz
+    "ggplot2",
+    "ggnewscale",
+    "plotly",
+    "pROC",
+
+    # DB / config
+    "DBI",
+    "RSQLite",
+    "config",
+
+    # Docs / misc
+    "markdown"
+  )
+)
+
 
 ## Add modules ----
 ## Create a module infrastructure in R/
